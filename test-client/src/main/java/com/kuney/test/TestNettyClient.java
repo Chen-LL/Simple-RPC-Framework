@@ -2,16 +2,17 @@ package com.kuney.test;
 
 import com.kuney.rpc.api.HelloService;
 import com.kuney.rpc.protocol.ProxyFactory;
-import com.kuney.rpc.protocol.socket.SocketClient;
+import com.kuney.rpc.protocol.netty.client.NettyClient;
 
 /**
  * @author kuneychen
- * @since 2022/7/12 17:58
+ * @since 2022/7/19 22:05
  */
-public class TestSocketClient {
+public class TestNettyClient {
     public static void main(String[] args) {
-        HelloService helloService = ProxyFactory.getProxy(HelloService.class, new SocketClient());
-        Object result = helloService.hello("socket");
+        NettyClient client = new NettyClient("localhost", 8080);
+        HelloService helloService = ProxyFactory.getProxy(HelloService.class, client);
+        Object result = helloService.hello("netty client");
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {

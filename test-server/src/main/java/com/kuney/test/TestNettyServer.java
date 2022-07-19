@@ -1,20 +1,19 @@
 package com.kuney.test;
 
-import com.kuney.rpc.protocol.socket.SocketServer;
+import com.kuney.rpc.protocol.netty.server.NettyServer;
 import com.kuney.rpc.registry.DefaultServiceRegistry;
 import com.kuney.rpc.registry.ServiceRegistry;
 
 /**
  * @author kuneychen
- * @since 2022/7/12 18:08
+ * @since 2022/7/19 22:07
  */
-public class TestServerSocket {
-
+public class TestNettyServer {
     public static void main(String[] args) {
         ServiceRegistry serviceRegistry = new DefaultServiceRegistry();
         serviceRegistry.register(new HelloServiceImpl());
-        SocketServer socketServer = new SocketServer(serviceRegistry);
-        socketServer.start(8080);
-    }
 
+        NettyServer nettyServer = new NettyServer();
+        nettyServer.start(8080);
+    }
 }

@@ -2,6 +2,7 @@ package com.kuney.rpc.entity;
 
 import com.kuney.rpc.enums.ResponseCode;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @since 2022/7/12 16:23
  */
 @Data
+@NoArgsConstructor
 public class RpcResponse<T> implements Serializable {
 
     private Integer code;
