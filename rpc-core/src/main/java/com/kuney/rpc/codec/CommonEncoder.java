@@ -21,7 +21,7 @@ public class CommonEncoder extends MessageToByteEncoder {
     private final Serializer serializer;
 
     public CommonEncoder() {
-        this.serializer = Serializer.getByCode(SerializerCode.JSON.getCode());
+        this.serializer = Serializer.getByCode(SerializerCode.KRYO.getCode());
     }
 
     /*

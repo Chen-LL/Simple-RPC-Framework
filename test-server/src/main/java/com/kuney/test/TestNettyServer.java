@@ -12,6 +12,7 @@ public class TestNettyServer {
     public static void main(String[] args) {
         ServiceRegistry serviceRegistry = new DefaultServiceRegistry();
         serviceRegistry.register(new HelloServiceImpl());
+        serviceRegistry.register(new StudentServiceImpl());
 
         NettyServer nettyServer = new NettyServer();
         nettyServer.start(8080);

@@ -16,6 +16,8 @@ public interface Serializer {
 
     static Serializer getByCode(int code) {
         switch (code) {
+            case 0:
+                return SingletonFactory.getInstance(KryoSerializer.class);
             case 1:
                 return SingletonFactory.getInstance(JsonSerializer.class);
             default:
