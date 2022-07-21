@@ -2,7 +2,9 @@ package com.kuney.rpc.protocol.netty.server;
 
 import com.kuney.rpc.codec.CommonDecoder;
 import com.kuney.rpc.codec.CommonEncoder;
-import com.kuney.rpc.protocol.RpcServer;
+import com.kuney.rpc.protocol.AbstractServer;
+import com.kuney.rpc.registry.LocalServiceProvider;
+import com.kuney.rpc.registry.NacosServiceRegistry;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -18,9 +20,17 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2022/7/13 15:50
  */
 @Slf4j
-public class NettyServer implements RpcServer {
+public class NettyServer extends AbstractServer {
+
+    public NettyServer(String host, int port) {
+        this.host = host;
+        this.port = port;
+        serviceProvider = new LocalServiceProvider();
+        serviceRegistry = new NacosServiceRegistry();
+    }
+
     @Override
-    public void start(int port) {
+    public void start() {
         EventLoopGroup boss = new NioEventLoopGroup(), worker = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap()
@@ -47,4 +57,5 @@ public class NettyServer implements RpcServer {
             worker.shutdownGracefully();
         }
     }
+
 }

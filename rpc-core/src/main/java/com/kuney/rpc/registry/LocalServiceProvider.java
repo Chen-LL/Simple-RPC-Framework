@@ -14,12 +14,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2022/7/12 22:35
  */
 @Slf4j
-public class DefaultServiceRegistry implements ServiceRegistry {
+public class LocalServiceProvider {
 
     private static final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
     private static final Set<String> registeredService = ConcurrentHashMap.newKeySet();
 
-    @Override
     public <T> void register(T service) {
         String serviceName = service.getClass().getCanonicalName();
         if (registeredService.contains(serviceName)) {
@@ -36,9 +35,8 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         log.info("向接口：{} 注册服务：{}", interfaces, serviceName);
     }
 
-    @Override
-    public Object getService(String serviceName) {
-        Object service = serviceMap.get(serviceName);
+    public Object getService(String interfaceName) {
+        Object service = serviceMap.get(interfaceName);
         if (service == null) {
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);
         }

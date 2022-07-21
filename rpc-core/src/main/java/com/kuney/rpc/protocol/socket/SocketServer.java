@@ -1,8 +1,9 @@
 package com.kuney.rpc.protocol.socket;
 
 import com.kuney.rpc.handler.RequestHandler;
-import com.kuney.rpc.protocol.RpcServer;
-import com.kuney.rpc.registry.ServiceRegistry;
+import com.kuney.rpc.protocol.AbstractServer;
+import com.kuney.rpc.registry.LocalServiceProvider;
+import com.kuney.rpc.registry.NacosServiceRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.concurrent.*;
  * @since 2022/7/12 17:10
  */
 @Slf4j
-public class SocketServer implements RpcServer {
+public class SocketServer extends AbstractServer {
 
     private static final int CORE_POOL_SIZE = 5;
     private static final int MAX_POOL_SIZE = 50;
@@ -23,13 +24,15 @@ public class SocketServer implements RpcServer {
     private static final int BLOCKING_QUEUE_CAPACITY = 100;
 
     private final ExecutorService threadPool;
-    private final ServiceRegistry serviceRegistry;
     private final RequestHandler requestHandler;
 
-    public SocketServer(ServiceRegistry serviceRegistry) {
-        this.serviceRegistry = serviceRegistry;
-        this.requestHandler = new RequestHandler();
-        this.threadPool = new ThreadPoolExecutor(
+    public SocketServer(String host, int port) {
+        this.host = host;
+        this.port = port;
+        serviceRegistry = new NacosServiceRegistry();
+        serviceProvider = new LocalServiceProvider();
+        requestHandler = new RequestHandler();
+        threadPool = new ThreadPoolExecutor(
                 CORE_POOL_SIZE,
                 MAX_POOL_SIZE,
                 KEEP_ALIVE_TIME,
@@ -41,18 +44,19 @@ public class SocketServer implements RpcServer {
     }
 
     @Override
-    public void start(int port) {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+    public void start() {
+        try (ServerSocket serverSocket = new ServerSocket(8080)) {
             log.info("服务器启动......");
             Socket socket;
             while ((socket = serverSocket.accept()) != null) {
                 log.info("消费者连接 {}:{}", socket.getInetAddress(), socket.getPort());
-                threadPool.execute(new RequestHandlerThread(socket, requestHandler, serviceRegistry));
+                threadPool.execute(new RequestHandlerThread(socket, requestHandler, serviceProvider));
             }
             threadPool.shutdown();
         } catch (IOException e) {
             log.error("服务器启动发生错误：{}", e.getMessage());
         }
     }
+
 }
 

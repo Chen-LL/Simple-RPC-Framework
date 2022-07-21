@@ -1,13 +1,15 @@
 package com.kuney.rpc.registry;
 
+import com.kuney.rpc.protocol.URL;
+
 /**
  * @author kuneychen
  * @since 2022/7/12 22:34
  */
 public interface ServiceRegistry {
 
-    <T> void register(T service);
+    void register(String serviceName, URL url);
 
-    Object getService(String serviceName);
+    URL lookupService(String serviceName);
 
 }

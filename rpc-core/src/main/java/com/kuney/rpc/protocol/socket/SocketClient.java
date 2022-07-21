@@ -2,6 +2,7 @@ package com.kuney.rpc.protocol.socket;
 
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.protocol.RpcClient;
+import com.kuney.rpc.protocol.URL;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -17,9 +18,9 @@ import java.net.Socket;
 public class SocketClient implements RpcClient {
 
     @Override
-    public Object send(RpcRequest rpcRequest) {
+    public Object send(RpcRequest rpcRequest, URL url) {
         try (
-                Socket socket = new Socket("localhost", 8080);
+                Socket socket = new Socket(url.getHost(), url.getPort());
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
         ) {

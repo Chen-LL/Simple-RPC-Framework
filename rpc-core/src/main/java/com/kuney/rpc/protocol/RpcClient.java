@@ -8,6 +8,6 @@ import com.kuney.rpc.entity.RpcRequest;
  */
 public interface RpcClient {
 
-    Object send(RpcRequest rpcRequest);
+    Object send(RpcRequest rpcRequest, URL url);
 
 }

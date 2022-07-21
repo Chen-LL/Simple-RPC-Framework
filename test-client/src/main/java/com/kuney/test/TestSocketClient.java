@@ -1,7 +1,7 @@
 package com.kuney.test;
 
 import com.kuney.rpc.api.HelloService;
-import com.kuney.rpc.protocol.ProxyFactory;
+import com.kuney.rpc.factory.ClientProxyFactory;
 import com.kuney.rpc.protocol.socket.SocketClient;
 
 /**
@@ -10,7 +10,7 @@ import com.kuney.rpc.protocol.socket.SocketClient;
  */
 public class TestSocketClient {
     public static void main(String[] args) {
-        HelloService helloService = ProxyFactory.getProxy(HelloService.class, new SocketClient());
+        HelloService helloService = ClientProxyFactory.getProxy(HelloService.class, new SocketClient());
         Object result = helloService.hello("socket");
         try {
             Thread.sleep(10000);

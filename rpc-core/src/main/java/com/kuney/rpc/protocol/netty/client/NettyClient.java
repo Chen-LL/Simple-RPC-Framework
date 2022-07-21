@@ -5,6 +5,7 @@ import com.kuney.rpc.codec.CommonEncoder;
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;
 import com.kuney.rpc.protocol.RpcClient;
+import com.kuney.rpc.protocol.URL;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -22,15 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NettyClient implements RpcClient {
 
-    private String host;
-    private int port;
-
     private static final Bootstrap bootstrap;
-
-    public NettyClient(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
 
     static {
         NioEventLoopGroup group = new NioEventLoopGroup();
@@ -50,10 +43,10 @@ public class NettyClient implements RpcClient {
     }
 
     @Override
-    public Object send(RpcRequest rpcRequest) {
+    public Object send(RpcRequest rpcRequest, URL url) {
         try {
-            ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
-            log.info("客户端连接到服务器 {}:{}", host, port);
+            ChannelFuture channelFuture = bootstrap.connect(url.getHost(), url.getPort()).sync();
+            log.info("客户端连接到服务器 {}:{}", url.getHost(), url.getPort());
             Channel channel = channelFuture.channel();
             if (channel != null) {
                 channel.writeAndFlush(rpcRequest)
@@ -68,7 +61,7 @@ public class NettyClient implements RpcClient {
                 // 阻塞获取返回结果
                 AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse");
                 RpcResponse rpcResponse = channel.attr(key).get();
-                return rpcResponse.getData();
+                return rpcResponse;
             }
         } catch (InterruptedException e) {
             log.info("客户端发送消息失败：{}", e.getMessage());

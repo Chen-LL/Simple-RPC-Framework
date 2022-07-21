@@ -1,8 +1,8 @@
 package com.kuney.test;
 
+import com.kuney.rpc.api.HelloService;
+import com.kuney.rpc.api.StudentService;
 import com.kuney.rpc.protocol.socket.SocketServer;
-import com.kuney.rpc.registry.DefaultServiceRegistry;
-import com.kuney.rpc.registry.ServiceRegistry;
 
 /**
  * @author kuneychen
@@ -11,10 +11,10 @@ import com.kuney.rpc.registry.ServiceRegistry;
 public class TestServerSocket {
 
     public static void main(String[] args) {
-        ServiceRegistry serviceRegistry = new DefaultServiceRegistry();
-        serviceRegistry.register(new HelloServiceImpl());
-        SocketServer socketServer = new SocketServer(serviceRegistry);
-        socketServer.start(8080);
+        SocketServer socketServer = new SocketServer("192.168.3.18", 9090);
+        socketServer.publishService(new HelloServiceImpl(), HelloService.class);
+        socketServer.publishService(new StudentServiceImpl(), StudentService.class);
+        socketServer.start();
     }
 
 }

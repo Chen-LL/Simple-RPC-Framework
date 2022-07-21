@@ -1,8 +1,8 @@
 package com.kuney.test;
 
+import com.kuney.rpc.api.HelloService;
+import com.kuney.rpc.api.StudentService;
 import com.kuney.rpc.protocol.netty.server.NettyServer;
-import com.kuney.rpc.registry.DefaultServiceRegistry;
-import com.kuney.rpc.registry.ServiceRegistry;
 
 /**
  * @author kuneychen
@@ -10,11 +10,9 @@ import com.kuney.rpc.registry.ServiceRegistry;
  */
 public class TestNettyServer {
     public static void main(String[] args) {
-        ServiceRegistry serviceRegistry = new DefaultServiceRegistry();
-        serviceRegistry.register(new HelloServiceImpl());
-        serviceRegistry.register(new StudentServiceImpl());
-
-        NettyServer nettyServer = new NettyServer();
-        nettyServer.start(8080);
+        NettyServer nettyServer = new NettyServer("127.0.0.1", 8080);
+        nettyServer.publishService(new HelloServiceImpl(), HelloService.class);
+        nettyServer.publishService(new StudentServiceImpl(), StudentService.class);
+        nettyServer.start();
     }
 }

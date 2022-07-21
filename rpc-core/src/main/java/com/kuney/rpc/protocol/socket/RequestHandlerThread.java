@@ -3,7 +3,7 @@ package com.kuney.rpc.protocol.socket;
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;
 import com.kuney.rpc.handler.RequestHandler;
-import com.kuney.rpc.registry.ServiceRegistry;
+import com.kuney.rpc.registry.LocalServiceProvider;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -20,12 +20,12 @@ public class RequestHandlerThread implements Runnable {
 
     private Socket socket;
     private RequestHandler requestHandler;
-    private ServiceRegistry serviceRegistry;
+    private LocalServiceProvider serviceProvider;
 
-    public RequestHandlerThread(Socket socket, RequestHandler requestHandler, ServiceRegistry serviceRegistry) {
+    public RequestHandlerThread(Socket socket, RequestHandler requestHandler, LocalServiceProvider serviceProvider) {
         this.socket = socket;
         this.requestHandler = requestHandler;
-        this.serviceRegistry = serviceRegistry;
+        this.serviceProvider = serviceProvider;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class RequestHandlerThread implements Runnable {
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         ) {
             RpcRequest rpcRequest = (RpcRequest) ois.readObject();
-            Object service = serviceRegistry.getService(rpcRequest.getInterfaceName());
+            Object service = serviceProvider.getService(rpcRequest.getInterfaceName());
             Object result = requestHandler.handle(rpcRequest, service);
             oos.writeObject(RpcResponse.success(result));
             oos.flush();
