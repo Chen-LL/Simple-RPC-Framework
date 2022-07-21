@@ -2,10 +2,10 @@ package com.kuney.rpc.factory;
 
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;
+import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.protocol.RpcClient;
-import com.kuney.rpc.protocol.URL;
-import com.kuney.rpc.registry.NacosServiceRegistry;
-import com.kuney.rpc.registry.ServiceRegistry;
+import com.kuney.rpc.registry.NacosServiceDiscovery;
+import com.kuney.rpc.registry.ServiceDiscovery;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -17,10 +17,10 @@ import java.lang.reflect.Proxy;
  */
 public class ClientProxyFactory {
 
-    private static final ServiceRegistry serviceRegistry;
+    private static final ServiceDiscovery serviceDiscovery;
 
     static {
-        serviceRegistry = new NacosServiceRegistry();
+        serviceDiscovery = new NacosServiceDiscovery();
     }
 
     @SuppressWarnings("unchecked")
@@ -34,7 +34,7 @@ public class ClientProxyFactory {
                         .paramTypes(method.getParameterTypes())
                         .params(args)
                         .build();
-                URL url = serviceRegistry.lookupService(rpcRequest.getInterfaceName());
+                URL url = serviceDiscovery.lookupService(rpcRequest.getInterfaceName());
                 RpcResponse response = (RpcResponse) client.send(rpcRequest, url);
                 return response.getData();
             }

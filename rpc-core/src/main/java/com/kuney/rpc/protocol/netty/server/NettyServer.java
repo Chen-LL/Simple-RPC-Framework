@@ -2,6 +2,7 @@ package com.kuney.rpc.protocol.netty.server;
 
 import com.kuney.rpc.codec.CommonDecoder;
 import com.kuney.rpc.codec.CommonEncoder;
+import com.kuney.rpc.hook.ShutdownHook;
 import com.kuney.rpc.protocol.AbstractServer;
 import com.kuney.rpc.registry.LocalServiceProvider;
 import com.kuney.rpc.registry.NacosServiceRegistry;
@@ -31,6 +32,7 @@ public class NettyServer extends AbstractServer {
 
     @Override
     public void start() {
+        ShutdownHook.getInstance().addDeregisterHook();
         EventLoopGroup boss = new NioEventLoopGroup(), worker = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap()

@@ -2,7 +2,7 @@ package com.kuney.rpc.protocol.socket;
 
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.protocol.RpcClient;
-import com.kuney.rpc.protocol.URL;
+import com.kuney.rpc.entity.URL;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

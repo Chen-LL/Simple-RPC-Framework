@@ -1,6 +1,7 @@
 package com.kuney.rpc.protocol;
 
 import com.kuney.rpc.entity.RpcRequest;
+import com.kuney.rpc.entity.URL;
 
 /**
  * @author kuneychen

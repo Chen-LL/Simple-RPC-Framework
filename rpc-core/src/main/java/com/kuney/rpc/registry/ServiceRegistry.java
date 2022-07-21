@@ -1,6 +1,6 @@
 package com.kuney.rpc.registry;
 
-import com.kuney.rpc.protocol.URL;
+import com.kuney.rpc.entity.URL;
 
 /**
  * @author kuneychen
@@ -9,7 +9,5 @@ import com.kuney.rpc.protocol.URL;
 public interface ServiceRegistry {
 
     void register(String serviceName, URL url);
-
-    URL lookupService(String serviceName);
 
 }

@@ -5,7 +5,7 @@ import com.kuney.rpc.codec.CommonEncoder;
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;
 import com.kuney.rpc.protocol.RpcClient;
-import com.kuney.rpc.protocol.URL;
+import com.kuney.rpc.entity.URL;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

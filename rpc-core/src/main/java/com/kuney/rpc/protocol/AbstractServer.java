@@ -1,5 +1,6 @@
 package com.kuney.rpc.protocol;
 
+import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.registry.LocalServiceProvider;
 import com.kuney.rpc.registry.ServiceRegistry;
 

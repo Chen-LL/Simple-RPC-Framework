@@ -1,4 +1,4 @@
-package com.kuney.rpc.protocol;
+package com.kuney.rpc.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
