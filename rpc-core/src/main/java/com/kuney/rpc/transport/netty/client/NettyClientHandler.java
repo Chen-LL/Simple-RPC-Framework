@@ -1,4 +1,4 @@
-package com.kuney.rpc.protocol.netty.client;
+package com.kuney.rpc.transport.netty.client;
 
 import com.kuney.rpc.entity.RpcResponse;
 import io.netty.channel.ChannelHandlerContext;

@@ -16,9 +16,11 @@ public enum RpcError {
     UNKNOWN_PROTOCOL("Unknown protocol."),
     UNKNOWN_PACKAGE_TYPE("Unknown package type."),
     UNKNOWN_SERIALIZER("Unknown serializer."),
+    UNKNOWN_ERROR("Unknown error."),
     FAILED_TO_CONNECT_SERVICE_REGISTRY("Failed to connect service registry."),
     FAILED_TO_REGISTER_SERVICE("Failed to register service."),
-    FAILED_TO_LOOKUP_SERVICE("Failed to lookup service.");
+    FAILED_TO_LOOKUP_SERVICE("Failed to lookup service."),
+    SERVICE_SCAN_PACKAGE_NOT_FOUND("Service scan package not found.");
 
     private final String message;
 

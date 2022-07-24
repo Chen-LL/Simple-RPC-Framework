@@ -2,7 +2,7 @@ package com.kuney.test;
 
 import com.kuney.rpc.api.HelloService;
 import com.kuney.rpc.factory.ClientProxyFactory;
-import com.kuney.rpc.protocol.socket.SocketClient;
+import com.kuney.rpc.transport.socket.SocketClient;
 
 /**
  * @author kuneychen

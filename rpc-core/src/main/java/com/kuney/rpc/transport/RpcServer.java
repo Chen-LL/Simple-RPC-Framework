@@ -1,4 +1,4 @@
-package com.kuney.rpc.protocol;
+package com.kuney.rpc.transport;
 
 /**
  * @author kuneychen
@@ -8,6 +8,6 @@ public interface RpcServer {
 
     void start();
 
-    <T> void publishService(Object service, Class<T> interfaceClass);
+    <T> void publishService(String serviceName, Object service);
 
 }

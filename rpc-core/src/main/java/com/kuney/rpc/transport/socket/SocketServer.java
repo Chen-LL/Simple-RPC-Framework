@@ -1,7 +1,7 @@
-package com.kuney.rpc.protocol.socket;
+package com.kuney.rpc.transport.socket;
 
 import com.kuney.rpc.handler.RequestHandler;
-import com.kuney.rpc.protocol.AbstractServer;
+import com.kuney.rpc.transport.AbstractServer;
 import com.kuney.rpc.registry.LocalServiceProvider;
 import com.kuney.rpc.registry.NacosServiceRegistry;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +41,7 @@ public class SocketServer extends AbstractServer {
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.DiscardOldestPolicy()
         );
+        scanService();
     }
 
     @Override

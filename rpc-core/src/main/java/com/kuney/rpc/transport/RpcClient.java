@@ -1,4 +1,4 @@
-package com.kuney.rpc.protocol;
+package com.kuney.rpc.transport;
 
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.URL;

@@ -10,18 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ShutdownHook {
 
-    private static volatile ShutdownHook shutdownHook;
+    private static final ShutdownHook shutdownHook = new ShutdownHook();
 
     private ShutdownHook() {}
 
     public static ShutdownHook getInstance() {
-        if (shutdownHook == null) {
-            synchronized (ShutdownHook.class) {
-                if (shutdownHook == null) {
-                    shutdownHook = new ShutdownHook();
-                }
-            }
-        }
         return shutdownHook;
     }
 

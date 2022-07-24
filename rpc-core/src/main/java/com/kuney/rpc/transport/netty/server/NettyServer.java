@@ -1,9 +1,9 @@
-package com.kuney.rpc.protocol.netty.server;
+package com.kuney.rpc.transport.netty.server;
 
 import com.kuney.rpc.codec.CommonDecoder;
 import com.kuney.rpc.codec.CommonEncoder;
 import com.kuney.rpc.hook.ShutdownHook;
-import com.kuney.rpc.protocol.AbstractServer;
+import com.kuney.rpc.transport.AbstractServer;
 import com.kuney.rpc.registry.LocalServiceProvider;
 import com.kuney.rpc.registry.NacosServiceRegistry;
 import io.netty.bootstrap.ServerBootstrap;
@@ -28,6 +28,7 @@ public class NettyServer extends AbstractServer {
         this.port = port;
         serviceProvider = new LocalServiceProvider();
         serviceRegistry = new NacosServiceRegistry();
+        scanService();
     }
 
     @Override

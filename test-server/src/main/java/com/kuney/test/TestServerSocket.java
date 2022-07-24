@@ -1,8 +1,6 @@
 package com.kuney.test;
 
-import com.kuney.rpc.api.HelloService;
-import com.kuney.rpc.api.StudentService;
-import com.kuney.rpc.protocol.socket.SocketServer;
+import com.kuney.rpc.transport.socket.SocketServer;
 
 /**
  * @author kuneychen
@@ -12,8 +10,6 @@ public class TestServerSocket {
 
     public static void main(String[] args) {
         SocketServer socketServer = new SocketServer("192.168.3.18", 9090);
-        socketServer.publishService(new HelloServiceImpl(), HelloService.class);
-        socketServer.publishService(new StudentServiceImpl(), StudentService.class);
         socketServer.start();
     }
 

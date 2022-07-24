@@ -1,4 +1,4 @@
-package com.kuney.rpc.protocol.netty.server;
+package com.kuney.rpc.transport.netty.server;
 
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;

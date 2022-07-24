@@ -1,16 +1,13 @@
-package com.kuney.rpc.protocol.netty.client;
+package com.kuney.rpc.transport.netty.client;
 
 import com.kuney.rpc.codec.CommonDecoder;
 import com.kuney.rpc.codec.CommonEncoder;
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;
-import com.kuney.rpc.protocol.RpcClient;
+import com.kuney.rpc.transport.RpcClient;
 import com.kuney.rpc.entity.URL;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
@@ -50,11 +47,12 @@ public class NettyClient implements RpcClient {
             Channel channel = channelFuture.channel();
             if (channel != null) {
                 channel.writeAndFlush(rpcRequest)
-                        .addListener(future -> {
+                        .addListener((ChannelFutureListener) future -> {
                             if (future.isSuccess()) {
                                 log.info("客户端成功发送消息：{}", rpcRequest.toString());
                             } else {
                                 log.info("客户端发送消息失败：{}", future.cause().getMessage());
+                                future.channel().close();
                             }
                         });
                 channel.closeFuture().sync();

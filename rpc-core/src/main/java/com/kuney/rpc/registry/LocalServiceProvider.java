@@ -17,26 +17,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LocalServiceProvider {
 
     private static final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
-    private static final Set<String> registeredService = ConcurrentHashMap.newKeySet();
 
-    public <T> void register(T service) {
-        String serviceName = service.getClass().getCanonicalName();
-        if (registeredService.contains(serviceName)) {
+    public <T> void register(String serviceName, T service) {
+        if (serviceMap.containsKey(serviceName)) {
             return;
         }
-        registeredService.add(serviceName);
-        Class<?>[] interfaces = service.getClass().getInterfaces();
-        if (interfaces.length == 0) {
-            throw new RpcException(RpcError.SERVICE_NOT_IMPLEMENT_ANY_INTERFACE);
-        }
-        for (Class<?> i : interfaces) {
-            serviceMap.put(i.getCanonicalName(), service);
-        }
-        log.info("向接口：{} 注册服务：{}", interfaces, serviceName);
+        serviceMap.put(serviceName, service);
+        log.info("向接口：{} 注册服务：{}", service.getClass().getInterfaces(), serviceName);
     }
 
-    public Object getService(String interfaceName) {
-        Object service = serviceMap.get(interfaceName);
+    public Object getService(String serviceName) {
+        Object service = serviceMap.get(serviceName);
         if (service == null) {
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);
         }
