@@ -9,7 +9,7 @@ import com.kuney.rpc.transport.socket.SocketServer;
 public class TestServerSocket {
 
     public static void main(String[] args) {
-        SocketServer socketServer = new SocketServer("192.168.3.18", 9090);
+        SocketServer socketServer = new SocketServer();
         socketServer.start();
     }
 

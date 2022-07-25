@@ -2,8 +2,6 @@ package com.kuney.rpc.transport.socket;
 
 import com.kuney.rpc.handler.RequestHandler;
 import com.kuney.rpc.transport.AbstractServer;
-import com.kuney.rpc.registry.LocalServiceProvider;
-import com.kuney.rpc.registry.NacosServiceRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -26,11 +24,7 @@ public class SocketServer extends AbstractServer {
     private final ExecutorService threadPool;
     private final RequestHandler requestHandler;
 
-    public SocketServer(String host, int port) {
-        this.host = host;
-        this.port = port;
-        serviceRegistry = new NacosServiceRegistry();
-        serviceProvider = new LocalServiceProvider();
+    public SocketServer() {
         requestHandler = new RequestHandler();
         threadPool = new ThreadPoolExecutor(
                 CORE_POOL_SIZE,

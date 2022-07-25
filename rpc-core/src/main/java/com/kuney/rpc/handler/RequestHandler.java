@@ -22,7 +22,6 @@ public class RequestHandler {
             log.info("服务：{} 成功调用方法: {}", rpcRequest.getInterfaceName(), rpcRequest.getMethodName());
         } catch (IllegalAccessException | InvocationTargetException e) {
             log.error("调用服务时发生错误：{}", e.getMessage());
-            e.printStackTrace();
         }
         return result;
     }

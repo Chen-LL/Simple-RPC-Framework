@@ -2,10 +2,12 @@ package com.kuney.rpc.transport;
 
 import com.kuney.rpc.annotation.Service;
 import com.kuney.rpc.annotation.ServiceScan;
+import com.kuney.rpc.config.Configuration;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
 import com.kuney.rpc.registry.LocalServiceProvider;
+import com.kuney.rpc.registry.NacosServiceRegistry;
 import com.kuney.rpc.registry.ServiceRegistry;
 import com.kuney.rpc.util.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,13 @@ public abstract class AbstractServer implements RpcServer {
     protected int port;
     protected LocalServiceProvider serviceProvider;
     protected ServiceRegistry serviceRegistry;
+
+    public AbstractServer() {
+        this.host = Configuration.getHost();
+        this.port = Configuration.getPort();
+        this.serviceProvider = new LocalServiceProvider();
+        this.serviceRegistry = new NacosServiceRegistry();
+    }
 
     @Override
     public <T> void publishService(String serviceName, Object service) {

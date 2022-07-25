@@ -11,12 +11,12 @@ import java.io.Serializable;
  * @author kuneychen
  * @since 2022/7/12 16:21
  */
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class RpcRequest implements Serializable {
 
+    private String requestId;
     private String interfaceName;
     private String methodName;
     private Class<?>[] paramTypes;

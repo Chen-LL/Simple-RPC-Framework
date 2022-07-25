@@ -4,8 +4,6 @@ import com.kuney.rpc.codec.CommonDecoder;
 import com.kuney.rpc.codec.CommonEncoder;
 import com.kuney.rpc.hook.ShutdownHook;
 import com.kuney.rpc.transport.AbstractServer;
-import com.kuney.rpc.registry.LocalServiceProvider;
-import com.kuney.rpc.registry.NacosServiceRegistry;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -23,11 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NettyServer extends AbstractServer {
 
-    public NettyServer(String host, int port) {
-        this.host = host;
-        this.port = port;
-        serviceProvider = new LocalServiceProvider();
-        serviceRegistry = new NacosServiceRegistry();
+    public NettyServer() {
         scanService();
     }
 

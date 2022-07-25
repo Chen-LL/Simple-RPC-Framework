@@ -10,7 +10,7 @@ import com.kuney.rpc.transport.netty.server.NettyServer;
 @ServiceScan
 public class TestNettyServer {
     public static void main(String[] args) {
-        NettyServer nettyServer = new NettyServer("127.0.0.1", 8080);
+        NettyServer nettyServer = new NettyServer();
         nettyServer.start();
     }
 }

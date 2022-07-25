@@ -3,13 +3,17 @@ package com.kuney.rpc.factory;
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;
 import com.kuney.rpc.entity.URL;
-import com.kuney.rpc.transport.RpcClient;
+import com.kuney.rpc.enums.ResponseCode;
+import com.kuney.rpc.enums.RpcError;
+import com.kuney.rpc.exception.RpcException;
 import com.kuney.rpc.registry.NacosServiceDiscovery;
 import com.kuney.rpc.registry.ServiceDiscovery;
+import com.kuney.rpc.transport.RpcClient;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.UUID;
 
 /**
  * @author kuneychen
@@ -30,6 +34,7 @@ public class ClientProxyFactory {
 
     private static class ClientProxy implements InvocationHandler {
 
+        private static final String INTERFACE_NAME = "interface name";
         private RpcClient client;
 
         public ClientProxy(RpcClient client) {
@@ -38,20 +43,27 @@ public class ClientProxyFactory {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            RpcRequest rpcRequest = RpcRequest.builder()
-                    .interfaceName(method.getDeclaringClass().getCanonicalName())
-                    .methodName(method.getName())
-                    .paramTypes(method.getParameterTypes())
-                    .params(args)
-                    .build();
+            RpcRequest rpcRequest = new RpcRequest(
+                    UUID.randomUUID().toString(),
+                    method.getDeclaringClass().getCanonicalName(),
+                    method.getName(),
+                    method.getParameterTypes(),
+                    args
+            );
             URL url = serviceDiscovery.lookupService(rpcRequest.getInterfaceName());
             RpcResponse rpcResponse = (RpcResponse) client.send(rpcRequest, url);
             this.check(rpcRequest, rpcResponse);
             return rpcResponse.getData();
         }
 
-        private void check(RpcRequest rpcRequest, RpcResponse rpcResponse) {
-
+        private void check(RpcRequest request, RpcResponse response) {
+            String interfaceName = INTERFACE_NAME + ":" + request.getInterfaceName();
+            if (response == null || response.getCode() == null || ResponseCode.SUCCESS.getCode() != response.getCode()) {
+                throw new RpcException(RpcError.SERVICE_INVOCATION_FAILURE, interfaceName);
+            }
+            if (!request.getRequestId().equals(response.getRequestId())) {
+                throw new RpcException(RpcError.REQUEST_NOT_MATCH_WITH_RESPONSE, interfaceName);
+            }
         }
     }
 

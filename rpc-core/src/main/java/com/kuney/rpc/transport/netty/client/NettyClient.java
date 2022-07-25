@@ -1,15 +1,11 @@
 package com.kuney.rpc.transport.netty.client;
 
-import com.kuney.rpc.codec.CommonDecoder;
-import com.kuney.rpc.codec.CommonEncoder;
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.entity.RpcResponse;
-import com.kuney.rpc.transport.RpcClient;
 import com.kuney.rpc.entity.URL;
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
+import com.kuney.rpc.transport.RpcClient;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.util.AttributeKey;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,31 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NettyClient implements RpcClient {
 
-    private static final Bootstrap bootstrap;
-
-    static {
-        NioEventLoopGroup group = new NioEventLoopGroup();
-        bootstrap = new Bootstrap();
-        bootstrap.group(group)
-                .channel(NioSocketChannel.class)
-                .option(ChannelOption.SO_KEEPALIVE, true)
-                .handler(new ChannelInitializer<NioSocketChannel>() {
-                    @Override
-                    protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline()
-                                .addLast(new CommonDecoder())
-                                .addLast(new CommonEncoder())
-                                .addLast(new NettyClientHandler());
-                    }
-                });
-    }
-
     @Override
     public Object send(RpcRequest rpcRequest, URL url) {
         try {
-            ChannelFuture channelFuture = bootstrap.connect(url.getHost(), url.getPort()).sync();
-            log.info("客户端连接到服务器 {}:{}", url.getHost(), url.getPort());
-            Channel channel = channelFuture.channel();
+            Channel channel = ChannelProvider.get(url);
             if (channel != null) {
                 channel.writeAndFlush(rpcRequest)
                         .addListener((ChannelFutureListener) future -> {

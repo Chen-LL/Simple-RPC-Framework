@@ -29,13 +29,12 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
         log.info("服务器接收到请求：{}", request.toString());
         Object service = serviceProvider.getService(request.getInterfaceName());
         Object result = requestHandler.handle(request, service);
-        ctx.writeAndFlush(RpcResponse.success(result)).addListener(ChannelFutureListener.CLOSE);
+        ctx.writeAndFlush(RpcResponse.success(result, request.getRequestId())).addListener(ChannelFutureListener.CLOSE);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.error("服务器处理接口调用时出错：{}", cause.getMessage());
-        cause.printStackTrace();
         ctx.close();
     }
 }

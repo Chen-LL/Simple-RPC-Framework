@@ -37,7 +37,7 @@ public class RequestHandlerThread implements Runnable {
             RpcRequest rpcRequest = (RpcRequest) ois.readObject();
             Object service = serviceProvider.getService(rpcRequest.getInterfaceName());
             Object result = requestHandler.handle(rpcRequest, service);
-            oos.writeObject(RpcResponse.success(result));
+            oos.writeObject(RpcResponse.success(result, rpcRequest.getRequestId()));
             oos.flush();
         } catch (IOException | ClassNotFoundException e) {
             log.error("请求处理时发生错误：{}", e.getMessage());

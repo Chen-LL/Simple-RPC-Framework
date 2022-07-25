@@ -16,11 +16,6 @@ public class TestNettyClient {
         // StudentService studentService = ClientProxyFactory.getProxy(StudentService.class, client);
         // Student result = studentService.getStudent();
         // List<Student> result = studentService.createList(10);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println(result);
     }
 }
