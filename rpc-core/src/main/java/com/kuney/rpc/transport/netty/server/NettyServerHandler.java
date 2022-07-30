@@ -31,7 +31,8 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
         }
         log.info("服务器接收到请求：{}", request);
         Object result = requestHandler.handle(request);
-        ctx.writeAndFlush(RpcResponse.success(result, request.getRequestId())).addListener(ChannelFutureListener.CLOSE);
+        ctx.writeAndFlush(RpcResponse.success(result, request.getRequestId()))
+                .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
         if (evt instanceof IdleStateEvent) {
             IdleState state = ((IdleStateEvent) evt).state();
             if (state == IdleState.READER_IDLE) {
-                log.warn("长时间未收到心跳包，断开连接...");
+                log.info("长时间未收到心跳包，断开连接...");
                 ctx.close();
             }
         } else {

@@ -4,7 +4,7 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.kuney.rpc.config.Configuration;
+import com.kuney.rpc.config.ServerConfiguration;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
@@ -23,7 +23,7 @@ public class NacosUtils {
 
     private static final Set<String> serviceNames = new HashSet<>();
     private static final NamingService namingService;
-    private static final String SERVICE_ADDRESS = Configuration.getServiceAddress();
+    private static final String SERVICE_ADDRESS = ServerConfiguration.getServiceAddress();
     private static URL url;
 
     static {

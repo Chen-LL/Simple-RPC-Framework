@@ -1,6 +1,6 @@
 package com.kuney.rpc.transport.netty.codec;
 
-import com.kuney.rpc.config.Configuration;
+import com.kuney.rpc.config.RpcConfiguration;
 import com.kuney.rpc.entity.RpcRequest;
 import com.kuney.rpc.enums.PackageType;
 import com.kuney.rpc.serialize.Serializer;
@@ -21,7 +21,7 @@ public class CommonEncoder extends MessageToByteEncoder {
     private final Serializer serializer;
 
     public CommonEncoder() {
-        this.serializer = Serializer.getByCode(Configuration.getSerializerCode());
+        this.serializer = Serializer.getByCode(RpcConfiguration.getSerializerCode());
     }
 
     /*

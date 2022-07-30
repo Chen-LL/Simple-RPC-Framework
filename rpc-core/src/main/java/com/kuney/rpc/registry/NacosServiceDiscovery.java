@@ -2,7 +2,7 @@ package com.kuney.rpc.registry;
 
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.kuney.rpc.config.Configuration;
+import com.kuney.rpc.config.ClientConfiguration;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
@@ -22,11 +22,7 @@ public class NacosServiceDiscovery implements ServiceDiscovery {
     private LoadBalancer loadBalancer;
 
     public NacosServiceDiscovery() {
-        loadBalancer = LoadBalancer.getByCode(Configuration.getLoadBalancerCode());
-    }
-
-    public NacosServiceDiscovery(LoadBalancer loadBalancer) {
-        this.loadBalancer = loadBalancer;
+        loadBalancer = LoadBalancer.getByCode(ClientConfiguration.getLoadBalancerCode());
     }
 
     @Override

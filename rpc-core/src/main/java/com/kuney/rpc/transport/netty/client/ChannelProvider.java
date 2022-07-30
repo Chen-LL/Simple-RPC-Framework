@@ -1,5 +1,6 @@
 package com.kuney.rpc.transport.netty.client;
 
+import com.kuney.rpc.config.ClientConfiguration;
 import com.kuney.rpc.transport.netty.codec.CommonDecoder;
 import com.kuney.rpc.transport.netty.codec.CommonEncoder;
 import com.kuney.rpc.entity.URL;
@@ -28,7 +29,7 @@ public class ChannelProvider {
     private static EventLoopGroup eventLoopGroup;
     private static Bootstrap bootstrap = initializeBootstrap();
     private static Map<URL, Channel> channels = new ConcurrentHashMap<>();
-    private static final int MAX_RETRY_COUNT = 5;
+    private static final int MAX_RETRY_COUNT = ClientConfiguration.getMaxRetryCount();
 
     public static Channel get(URL url) {
         Channel channel = channels.get(url);
@@ -49,7 +50,7 @@ public class ChannelProvider {
                 ch.pipeline()
                         .addLast(new CommonEncoder())
                         .addLast(new CommonDecoder())
-                        .addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS))
+                        .addLast(new IdleStateHandler(0, 15, 0, TimeUnit.SECONDS))
                         .addLast(new NettyClientHandler());
             }
         });
