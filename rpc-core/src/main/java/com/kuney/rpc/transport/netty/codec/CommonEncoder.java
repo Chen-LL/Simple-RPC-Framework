@@ -1,4 +1,4 @@
-package com.kuney.rpc.codec;
+package com.kuney.rpc.transport.netty.codec;
 
 import com.kuney.rpc.config.Configuration;
 import com.kuney.rpc.entity.RpcRequest;

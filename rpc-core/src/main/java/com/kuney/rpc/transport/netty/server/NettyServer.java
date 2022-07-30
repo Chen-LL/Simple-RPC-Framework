@@ -1,7 +1,7 @@
 package com.kuney.rpc.transport.netty.server;
 
-import com.kuney.rpc.codec.CommonDecoder;
-import com.kuney.rpc.codec.CommonEncoder;
+import com.kuney.rpc.transport.netty.codec.CommonDecoder;
+import com.kuney.rpc.transport.netty.codec.CommonEncoder;
 import com.kuney.rpc.hook.ShutdownHook;
 import com.kuney.rpc.transport.AbstractServer;
 import io.netty.bootstrap.ServerBootstrap;
@@ -12,7 +12,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author kuneychen
@@ -42,6 +45,7 @@ public class NettyServer extends AbstractServer {
                             ch.pipeline()
                                     .addLast(new CommonEncoder())
                                     .addLast(new CommonDecoder())
+                                    .addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS))
                                     .addLast(new NettyServerHandler());
                         }
                     });

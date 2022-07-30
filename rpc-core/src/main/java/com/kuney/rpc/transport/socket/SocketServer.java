@@ -1,5 +1,6 @@
 package com.kuney.rpc.transport.socket;
 
+import com.kuney.rpc.config.Configuration;
 import com.kuney.rpc.handler.RequestHandler;
 import com.kuney.rpc.transport.AbstractServer;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ public class SocketServer extends AbstractServer {
 
     @Override
     public void start() {
-        try (ServerSocket serverSocket = new ServerSocket(8080)) {
+        try (ServerSocket serverSocket = new ServerSocket(Configuration.getPort())) {
             log.info("服务器启动......");
             Socket socket;
             while ((socket = serverSocket.accept()) != null) {

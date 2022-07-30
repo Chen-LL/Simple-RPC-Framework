@@ -24,7 +24,8 @@ public enum RpcError {
     SERVICE_SCAN_PACKAGE_NOT_FOUND("Service scan package not found"),
     SERVICE_INVOCATION_FAILURE("Service invocation failure"),
     REQUEST_NOT_MATCH_WITH_RESPONSE("Request not match with response"),
-    NOT_SUPPORTED_SERIALIZE_ALGORITHM("Not supported serialize algorithm");
+    NOT_SUPPORTED_SERIALIZE_ALGORITHM("Not supported serialize algorithm"),
+    NOT_SUPPORTED_LOAD_BALANCE_ALGORITHM("Not supported load balance algorithm");
 
     private final String message;
 

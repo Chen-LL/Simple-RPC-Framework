@@ -1,6 +1,6 @@
 package com.kuney.test.api;
 
-import com.kuney.rpc.annotation.Service;
+import com.kuney.rpc.annotation.RpcService;
 import com.kuney.rpc.api.Student;
 import com.kuney.rpc.api.StudentService;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author kuneychen
  * @since 2022/7/20 16:50
  */
-@Service
+@RpcService
 public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudent() {

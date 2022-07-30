@@ -1,5 +1,6 @@
 package com.kuney.rpc.config;
 
+import com.kuney.rpc.enums.LoadBalancerCode;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.enums.SerializerCode;
 import com.kuney.rpc.exception.RpcException;
@@ -64,4 +65,17 @@ public abstract class Configuration {
         return value;
     }
 
+    public static int getLoadBalancerCode() {
+        String value = properties.getProperty("rpc.loadbalance");
+        if (value == null) {
+            log.info("使用默认的负责均衡算法：random");
+            return LoadBalancerCode.RANDOM.getCode();
+        }
+        LoadBalancerCode loadBalancerCode = LoadBalancerCode.valueOf(value.toUpperCase());
+        if (loadBalancerCode == null) {
+            throw new RpcException(RpcError.NOT_SUPPORTED_LOAD_BALANCE_ALGORITHM, ": rpc.loadbalance=" + value);
+        }
+        log.info("使用用户配置的负载均衡算法：{}", value);
+        return loadBalancerCode.getCode();
+    }
 }

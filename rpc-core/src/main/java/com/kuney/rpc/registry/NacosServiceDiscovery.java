@@ -2,11 +2,11 @@ package com.kuney.rpc.registry;
 
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.kuney.rpc.config.Configuration;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
-import com.kuney.rpc.loadbalancer.LoadBalancer;
-import com.kuney.rpc.loadbalancer.RandomLoadBalancer;
+import com.kuney.rpc.loadbalance.LoadBalancer;
 import com.kuney.rpc.util.NacosUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,10 +19,10 @@ import java.util.List;
 @Slf4j
 public class NacosServiceDiscovery implements ServiceDiscovery {
 
-    private final LoadBalancer loadBalancer;
+    private LoadBalancer loadBalancer;
 
     public NacosServiceDiscovery() {
-        loadBalancer = new RandomLoadBalancer();
+        loadBalancer = LoadBalancer.getByCode(Configuration.getLoadBalancerCode());
     }
 
     public NacosServiceDiscovery(LoadBalancer loadBalancer) {

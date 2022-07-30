@@ -1,6 +1,6 @@
 package com.kuney.rpc.transport;
 
-import com.kuney.rpc.annotation.Service;
+import com.kuney.rpc.annotation.RpcService;
 import com.kuney.rpc.annotation.ServiceScan;
 import com.kuney.rpc.config.Configuration;
 import com.kuney.rpc.entity.URL;
@@ -59,8 +59,8 @@ public abstract class AbstractServer implements RpcServer {
         }
         Set<Class<?>> classes = ReflectUtils.getClasses(basePackage);
         for (Class<?> clazz : classes) {
-            if (clazz.isAnnotationPresent(Service.class)) {
-                String serviceName = clazz.getAnnotation(Service.class).value();
+            if (clazz.isAnnotationPresent(RpcService.class)) {
+                String serviceName = clazz.getAnnotation(RpcService.class).value();
                 Object service = null;
                 try {
                     service = clazz.newInstance();

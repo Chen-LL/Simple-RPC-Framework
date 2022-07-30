@@ -1,4 +1,4 @@
-package com.kuney.rpc.loadbalancer;
+package com.kuney.rpc.loadbalance;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
 
