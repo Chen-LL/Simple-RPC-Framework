@@ -1,4 +1,4 @@
-package com.kuney.rpc.entity;
+package com.kuney.rpc.transport.dto;
 
 import com.kuney.rpc.enums.ResponseCode;
 import lombok.Data;

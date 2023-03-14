@@ -4,6 +4,8 @@ import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
 import com.kuney.rpc.factory.SingletonFactory;
+import com.kuney.rpc.loadbalance.impl.RandomLoadBalance;
+import com.kuney.rpc.loadbalance.impl.RoundRobinLoadBalance;
 
 import java.util.List;
 
@@ -11,16 +13,16 @@ import java.util.List;
  * @author kuneychen
  * @since 2022/7/21 21:05
  */
-public interface LoadBalancer {
+public interface LoadBalance {
 
     Instance select(List<Instance> instances);
 
-    static LoadBalancer getByCode(int code) {
+    static LoadBalance getByCode(int code) {
         switch (code) {
             case 0:
-                return SingletonFactory.getInstance(RandomLoadBalancer.class);
+                return SingletonFactory.getInstance(RandomLoadBalance.class);
             case 1:
-                return new RotateLoadBalancer();
+                return new RoundRobinLoadBalance();
             default:
                 throw new RpcException(RpcError.NOT_SUPPORTED_LOAD_BALANCE_ALGORITHM);
         }

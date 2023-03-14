@@ -1,7 +1,7 @@
 package com.kuney.rpc.transport.netty.client;
 
-import com.kuney.rpc.entity.RpcRequest;
-import com.kuney.rpc.entity.RpcResponse;
+import com.kuney.rpc.transport.dto.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcResponse;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.ResponseCode;
 import com.kuney.rpc.factory.SingletonFactory;
@@ -30,7 +30,7 @@ public class NettyClient implements RpcClient {
             channel.writeAndFlush(rpcRequest)
                     .addListener((ChannelFutureListener) future -> {
                         if (future.isSuccess()) {
-                            log.info("客户端成功发送消息：{}", rpcRequest.toString());
+                            log.info("客户端成功发送消息：{}", rpcRequest);
                         } else {
                             log.error("客户端发送消息失败：{}", future.cause().getMessage());
                             future.channel().close();

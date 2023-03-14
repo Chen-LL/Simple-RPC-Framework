@@ -1,7 +1,7 @@
 package com.kuney.rpc.transport.netty.codec;
 
 import com.kuney.rpc.config.RpcConfiguration;
-import com.kuney.rpc.entity.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcRequest;
 import com.kuney.rpc.enums.PackageType;
 import com.kuney.rpc.serialize.Serializer;
 import io.netty.buffer.ByteBuf;

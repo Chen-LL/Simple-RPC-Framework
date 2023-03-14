@@ -1,6 +1,6 @@
 package com.kuney.rpc.transport.socket;
 
-import com.kuney.rpc.entity.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcRequest;
 import com.kuney.rpc.transport.RpcClient;
 import com.kuney.rpc.entity.URL;
 import lombok.extern.slf4j.Slf4j;

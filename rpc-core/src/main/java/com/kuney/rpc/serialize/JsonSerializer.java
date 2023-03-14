@@ -2,7 +2,7 @@ package com.kuney.rpc.serialize;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kuney.rpc.entity.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcRequest;
 import com.kuney.rpc.enums.SerializerCode;
 import lombok.extern.slf4j.Slf4j;
 

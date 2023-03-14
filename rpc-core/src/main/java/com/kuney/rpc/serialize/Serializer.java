@@ -1,7 +1,5 @@
 package com.kuney.rpc.serialize;
 
-import com.kuney.rpc.enums.RpcError;
-import com.kuney.rpc.exception.RpcException;
 import com.kuney.rpc.factory.SingletonFactory;
 
 /**
@@ -23,7 +21,7 @@ public interface Serializer {
             case 1:
                 return SingletonFactory.getInstance(JsonSerializer.class);
             default:
-                throw new RpcException(RpcError.NOT_SUPPORTED_SERIALIZE_ALGORITHM);
+                return null;
         }
     }
 }

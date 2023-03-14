@@ -1,6 +1,6 @@
 package com.kuney.rpc.config;
 
-import com.kuney.rpc.enums.LoadBalancerCode;
+import com.kuney.rpc.enums.LoadBalanceCode;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
 import lombok.extern.slf4j.Slf4j;
@@ -12,18 +12,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClientConfiguration extends RpcConfiguration {
 
-    public static int getLoadBalancerCode() {
+    public static int getLoadBalanceCode() {
         String value = properties.getProperty("rpc.loadbalance");
         if (value == null) {
             log.info("使用默认的负责均衡算法：random");
-            return LoadBalancerCode.RANDOM.getCode();
+            return LoadBalanceCode.RANDOM.getCode();
         }
-        LoadBalancerCode loadBalancerCode = LoadBalancerCode.valueOf(value.toUpperCase());
-        if (loadBalancerCode == null) {
+        LoadBalanceCode loadBalanceCode = LoadBalanceCode.valueOf(value.toUpperCase());
+        if (loadBalanceCode == null) {
             throw new RpcException(RpcError.NOT_SUPPORTED_LOAD_BALANCE_ALGORITHM, ": rpc.loadbalance=" + value);
         }
         log.info("使用用户配置的负载均衡算法：{}", value);
-        return loadBalancerCode.getCode();
+        return loadBalanceCode.getCode();
     }
 
     public static int getMaxRetryCount() {

@@ -4,7 +4,7 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
-import com.kuney.rpc.util.NacosUtils;
+import com.kuney.rpc.registry.util.NacosUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**

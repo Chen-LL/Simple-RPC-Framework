@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum LoadBalancerCode {
+public enum LoadBalanceCode {
 
     RANDOM(0),
     ROTATE(1);

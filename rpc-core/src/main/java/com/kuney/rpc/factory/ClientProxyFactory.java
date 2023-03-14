@@ -1,7 +1,7 @@
 package com.kuney.rpc.factory;
 
-import com.kuney.rpc.entity.RpcRequest;
-import com.kuney.rpc.entity.RpcResponse;
+import com.kuney.rpc.transport.dto.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcResponse;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.ResponseCode;
 import com.kuney.rpc.enums.RpcError;

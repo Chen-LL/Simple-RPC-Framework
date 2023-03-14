@@ -1,8 +1,9 @@
 package com.kuney.rpc.handler;
 
-import com.kuney.rpc.entity.RpcRequest;
-import com.kuney.rpc.entity.RpcResponse;
+import com.kuney.rpc.transport.dto.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcResponse;
 import com.kuney.rpc.enums.ResponseCode;
+import com.kuney.rpc.factory.SingletonFactory;
 import com.kuney.rpc.registry.LocalServiceProvider;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +20,7 @@ public class RequestHandler {
     private static LocalServiceProvider serviceProvider;
 
     static {
-        serviceProvider = new LocalServiceProvider();
+        serviceProvider = SingletonFactory.getInstance(LocalServiceProvider.class);
     }
 
     public Object handle(RpcRequest rpcRequest) {

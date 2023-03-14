@@ -1,8 +1,8 @@
 package com.kuney.rpc.transport.netty.server;
 
-import com.kuney.rpc.entity.RpcRequest;
-import com.kuney.rpc.entity.RpcResponse;
 import com.kuney.rpc.handler.RequestHandler;
+import com.kuney.rpc.transport.dto.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcResponse;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

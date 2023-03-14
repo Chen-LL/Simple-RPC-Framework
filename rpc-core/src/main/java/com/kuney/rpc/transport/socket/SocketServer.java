@@ -46,7 +46,7 @@ public class SocketServer extends AbstractServer {
             Socket socket;
             while ((socket = serverSocket.accept()) != null) {
                 log.info("消费者连接 {}:{}", socket.getInetAddress(), socket.getPort());
-                threadPool.execute(new RequestHandlerThread(socket, requestHandler, serviceProvider));
+                threadPool.execute(new RequestHandlerThread(socket, requestHandler));
             }
             threadPool.shutdown();
         } catch (IOException e) {

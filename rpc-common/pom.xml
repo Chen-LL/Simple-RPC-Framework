@@ -13,12 +13,4 @@
 
     <name>rpc-common</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.alibaba.nacos</groupId>
-            <artifactId>nacos-client</artifactId>
-            <version>${nacos-client-version}</version>
-        </dependency>
-    </dependencies>
-
 </project>

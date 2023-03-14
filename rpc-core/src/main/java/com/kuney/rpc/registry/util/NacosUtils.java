@@ -1,4 +1,4 @@
-package com.kuney.rpc.util;
+package com.kuney.rpc.registry.util;
 
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;

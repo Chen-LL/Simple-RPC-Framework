@@ -1,11 +1,12 @@
 package com.kuney.rpc.transport;
 
 import com.kuney.rpc.annotation.RpcService;
-import com.kuney.rpc.annotation.ServiceScan;
+import com.kuney.rpc.annotation.RpcServiceScan;
 import com.kuney.rpc.config.ServerConfiguration;
 import com.kuney.rpc.entity.URL;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
+import com.kuney.rpc.factory.SingletonFactory;
 import com.kuney.rpc.registry.LocalServiceProvider;
 import com.kuney.rpc.registry.NacosServiceRegistry;
 import com.kuney.rpc.registry.ServiceRegistry;
@@ -29,7 +30,7 @@ public abstract class AbstractServer implements RpcServer {
     public AbstractServer() {
         this.host = ServerConfiguration.getHost();
         this.port = ServerConfiguration.getPort();
-        this.serviceProvider = new LocalServiceProvider();
+        this.serviceProvider = SingletonFactory.getInstance(LocalServiceProvider.class);
         this.serviceRegistry = new NacosServiceRegistry();
     }
 
@@ -48,12 +49,12 @@ public abstract class AbstractServer implements RpcServer {
             log.error("找不到启动类");
             throw new RpcException(RpcError.UNKNOWN_ERROR);
         }
-        ServiceScan serviceScan = startClass.getAnnotation(ServiceScan.class);
-        if (serviceScan == null) {
-            log.error("启动类缺少 @ServiceScan 注解");
+        RpcServiceScan rpcServiceScan = startClass.getAnnotation(RpcServiceScan.class);
+        if (rpcServiceScan == null) {
+            log.error("启动类缺少 @RpcServiceScan 注解");
             throw new RpcException(RpcError.SERVICE_SCAN_PACKAGE_NOT_FOUND);
         }
-        String basePackage = serviceScan.value();
+        String basePackage = rpcServiceScan.value();
         if ("".equals(basePackage)) {
             basePackage = startClassName.substring(0, startClassName.lastIndexOf("."));
         }

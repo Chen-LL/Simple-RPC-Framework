@@ -1,9 +1,8 @@
 package com.kuney.rpc.transport.socket;
 
-import com.kuney.rpc.entity.RpcRequest;
-import com.kuney.rpc.entity.RpcResponse;
+import com.kuney.rpc.transport.dto.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcResponse;
 import com.kuney.rpc.handler.RequestHandler;
-import com.kuney.rpc.registry.LocalServiceProvider;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -20,12 +19,10 @@ public class RequestHandlerThread implements Runnable {
 
     private Socket socket;
     private RequestHandler requestHandler;
-    private LocalServiceProvider serviceProvider;
 
-    public RequestHandlerThread(Socket socket, RequestHandler requestHandler, LocalServiceProvider serviceProvider) {
+    public RequestHandlerThread(Socket socket, RequestHandler requestHandler) {
         this.socket = socket;
         this.requestHandler = requestHandler;
-        this.serviceProvider = serviceProvider;
     }
 
     @Override

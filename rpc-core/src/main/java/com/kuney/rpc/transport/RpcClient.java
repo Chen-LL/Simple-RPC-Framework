@@ -1,6 +1,6 @@
 package com.kuney.rpc.transport;
 
-import com.kuney.rpc.entity.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcRequest;
 import com.kuney.rpc.entity.URL;
 
 /**

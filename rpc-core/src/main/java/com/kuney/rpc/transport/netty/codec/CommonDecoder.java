@@ -1,7 +1,7 @@
 package com.kuney.rpc.transport.netty.codec;
 
-import com.kuney.rpc.entity.RpcRequest;
-import com.kuney.rpc.entity.RpcResponse;
+import com.kuney.rpc.transport.dto.RpcRequest;
+import com.kuney.rpc.transport.dto.RpcResponse;
 import com.kuney.rpc.enums.PackageType;
 import com.kuney.rpc.enums.RpcError;
 import com.kuney.rpc.exception.RpcException;
@@ -35,7 +35,7 @@ public class CommonDecoder extends ReplayingDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         int magic = in.readInt();
         if (magic != MAGIC_NUMBER) {
-            log.error("不识别的协议包 MAGIC_NUMBER：{}", magic);
+            log.error("不识别的协议包 MAGIC NUMBER：{}", magic);
             throw new RpcException(RpcError.UNKNOWN_PROTOCOL);
         }
         int packageType = in.readInt();
@@ -45,13 +45,13 @@ public class CommonDecoder extends ReplayingDecoder {
         } else if (packageType == PackageType.RESPONSE_PACK.getType()) {
             packageClass = RpcResponse.class;
         } else {
-            log.error("不识别的数据包 PACKAGE_TYPE：{}", packageType);
+            log.error("不识别的数据包 PACKAGE TYPE：{}", packageType);
             throw new RpcException(RpcError.UNKNOWN_PACKAGE_TYPE);
         }
         int serializerCode = in.readInt();
         Serializer serializer = Serializer.getByCode(serializerCode);
         if (serializer == null) {
-            log.error("不识别的反序列化器 SERIALIZER_CODE：{}", serializerCode);
+            log.error("不识别的反序列化器 SERIALIZER CODE：{}", serializerCode);
             throw new RpcException(RpcError.UNKNOWN_SERIALIZER);
         }
         int length = in.readInt();

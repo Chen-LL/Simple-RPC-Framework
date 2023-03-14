@@ -1,6 +1,6 @@
 package com.kuney.rpc.hook;
 
-import com.kuney.rpc.util.NacosUtils;
+import com.kuney.rpc.registry.util.NacosUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**

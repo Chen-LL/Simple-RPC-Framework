@@ -1,6 +1,6 @@
 package com.kuney.rpc.transport.netty.client;
 
-import com.kuney.rpc.entity.RpcResponse;
+import com.kuney.rpc.transport.dto.RpcResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
